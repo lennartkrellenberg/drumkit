@@ -2,11 +2,12 @@
 <html lang="de" dir="ltr">
   <head>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
     <meta charset="utf-8">
     <title>Drumkit</title>
+
   </head>
   <body>
+
     <div class="keys">
 
 
@@ -58,40 +59,66 @@
     </div>
 
 
-    <audio src="audio/boom.wav" data-key="65"></audio>
+    <audio src="sounds/boom.wav" data-key="65"></audio>
 
 
-    <audio src="audio/clap.wav" data-key="83">
-
-    </audio>
-
-    <audio src="audio/hihat" data-key="68">
+    <audio src="sounds/clap.wav" data-key="83">
 
     </audio>
 
-    <audio src="audio/kick.wav" data-key="70">
+    <audio src="sounds/hihat.wav" data-key="68">
 
     </audio>
 
-    <audio src="audio/openhat.wav" data-key="71">
+    <audio src="sounds/kick.wav" data-key="70">
 
     </audio>
 
-    <audio src="audio/ride.wav" data-key="72">
+    <audio src="sounds/openhat.wav" data-key="71">
 
     </audio>
 
-    <audio src="audio/snare.wav" data-key="74">
+    <audio src="sounds/ride.wav" data-key="72">
 
     </audio>
 
-    <audio src="audio/tink.wav" data-key="75">
+    <audio src="sounds/snare.wav" data-key="74">
 
     </audio>
 
-    <audio src="audio/tom.wav" data-key="76">
+    <audio src="sounds/tink.wav" data-key="75">
 
     </audio>
+
+    <audio src="sounds/tom.wav" data-key="76">
+
+    </audio>
+
+    <script type="text/javascript">
+    function removeTransition(e) {
+      if (e.propertyName !== 'transform') return;
+      e.target.classList.remove('playing');
+    }
+
+    function playSound(e) {
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+      if (!audio) return;
+
+      key.classList.add('playing');
+      audio.currentTime = 0;
+      audio.play();
+    }
+
+    const keys = Array.from(document.querySelectorAll('.key'));
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+    window.addEventListener('keydown', playSound);
+
+
+    </script>
+
+
+
 
   </body>
 </html>
